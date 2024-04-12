@@ -6,6 +6,7 @@ from constants import AtlasSheets
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
+
 def used_phone_data() -> pd.DataFrame:
     """Return a dataframe with what we need about used phones"""
     used_phone_url = AtlasSheets.IPHONE_USED.csv_url
@@ -22,6 +23,7 @@ def used_phone_data() -> pd.DataFrame:
     
     df = df.loc[:, ~df.columns.str.startswith('Unnamed')]
     return df
+
 
 @api.route('/iphone-used/<model>')
 def iphone_used(model: str) -> Response:
@@ -48,6 +50,7 @@ def iphone_used(model: str) -> Response:
         status=422,
         response=f"Got {len(result)} results for {model} with grade {grade}"
         )
+
 
 app = Flask(__name__)
 app.register_blueprint(api)

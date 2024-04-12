@@ -6,6 +6,7 @@ GDOCS_URL = "https://docs.google.com/spreadsheets/d/"
 CSV_ENDING = "/export?format=csv&gid="
 ATLAS_ID = "1pu4Adxq4MGB6Qour0k__4gBdgnggWRoSVYnJUKgxzEw"
 
+
 class AtlasSheets(Enum):
     """Maps sheet names to google doc ID"""
     GENERAL_INFO_GRADING = 1453313541
