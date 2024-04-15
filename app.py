@@ -38,6 +38,7 @@ def used_phone_data() -> pd.DataFrame:
     df = df.loc[:, ~df.columns.str.startswith('Unnamed')]
     return df
 
+
 @api.route('/iphone-used/<model>')
 def iphone_used(model: str) -> Response:
     """Returns used phone prices"""
@@ -63,6 +64,7 @@ def iphone_used(model: str) -> Response:
         status=422,
         response=f"Got {len(result)} results for {model} with grade {grade}"
         )
+
 
 app = Flask(__name__)
 app.register_blueprint(api)
