@@ -44,12 +44,14 @@ def iphone_used(model: str) -> Response:
     """Returns used phone prices"""
     data = used_phone_data()
 
-    is_unlocked = request.args.get("unlocked", False)
+    is_unlocked = request.args.get("unlocked", False) == 'true'
+    
+    print(is_unlocked, request.args.get('unlocked'))
     grade = request.args.get('grade', "b")
     storage = request.args.get('storage', '256gb')
 
     unlocked = 'unlocked' if is_unlocked else 'carrier locked'
-    model = f"{model.lower()} {storage} {unlocked}"
+    model = f"{model.lower()} {storage.lower()} {unlocked}"
 
     try:
         result = data.loc[data['model_name'] == model, grade]
@@ -70,4 +72,4 @@ app = Flask(__name__)
 app.register_blueprint(api)
 
 if __name__ == "__main__":
-    new_phone_data()
+    app.run()
