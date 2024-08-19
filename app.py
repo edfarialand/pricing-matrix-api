@@ -47,7 +47,7 @@ def iphone_used(model: str) -> Response:
     is_unlocked = request.args.get("unlocked", False) == 'true'
     
     print(is_unlocked, request.args.get('unlocked'))
-    grade = request.args.get('grade', "b")
+    grade = request.args.get('grade', 'b').lower()
     storage = request.args.get('storage', '256gb')
 
     unlocked = 'unlocked' if is_unlocked else 'carrier locked'
@@ -56,8 +56,7 @@ def iphone_used(model: str) -> Response:
     try:
         result = data.loc[data['model_name'] == model, grade]
     except KeyError:
-        response = f"Invalid Grade \
-                     available grades are: {", ".join(list(data.columns))}"
+        response = f"Invalid Grade {grade} for model {model}! available grades are: {", ".join(list(data.columns))}"
         return Response(status=500, response=response)
 
     if len(result) == 1:
